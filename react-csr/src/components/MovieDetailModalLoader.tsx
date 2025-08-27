@@ -44,5 +44,5 @@ export const MovieDetailModalLoader = ({
     );
   }
 
-  return <MovieDetailModal movie={movie.data} onClose={close} />;
+  return <MovieDetailModal movie={movie} onClose={close} />;
 };

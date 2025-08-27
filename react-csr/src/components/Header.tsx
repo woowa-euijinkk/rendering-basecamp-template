@@ -1,25 +1,11 @@
-import { usePopularMovies } from '../hooks/queries/useMovies';
+import { MovieItem } from '../types/Movie.types';
 import { IconButton } from './common/IconButton';
-import { Skeleton } from './common/Skeleton';
 import { FeaturedMovie } from './FeaturedMovie';
 
-export const Header = () => {
-  const { data, isLoading } = usePopularMovies();
-
-  const featuredMovie = data?.pages[0]?.data.results[0];
-
+export const Header = ({ featuredMovie }: { featuredMovie: MovieItem }) => {
   const handleLogoClick = () => {
     window.location.reload();
   };
-
-  // 로딩 중일 때 스켈레톤 표시
-  if (isLoading) {
-    return (
-      <header className="skeleton-animation">
-        <Skeleton width={1980} height={500} />
-      </header>
-    );
-  }
 
   return (
     <header>

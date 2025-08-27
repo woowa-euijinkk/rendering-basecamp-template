@@ -1,18 +1,36 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { moviesApi } from '../../api/movies';
-import { QUERY_KEYS } from '../../api/constants';
+import { MovieItem } from '../../types/Movie.types';
 
 /**
- * 인기 영화 목록을 무한 스크롤로 조회하는 훅
+ * 영화 상세 정보를 조회하는 훅
  */
 export const usePopularMovies = () => {
-  return useInfiniteQuery({
-    queryKey: QUERY_KEYS.MOVIES.POPULAR,
-    queryFn: ({ pageParam = 1 }) => moviesApi.getPopular(pageParam),
-    getNextPageParam: lastPage =>
-      lastPage.data.page < lastPage.data.total_pages
-        ? lastPage.data.page + 1
-        : undefined,
-    initialPageParam: 1,
-  });
+  const [data, setData] = useState<MovieItem[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchPopularMovies = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const movieDetail = await moviesApi.getPopular();
+        setData(movieDetail.data.results);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err
+            : new Error('영화 정보를 불러오는데 실패했습니다.')
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPopularMovies();
+  }, []);
+
+  return { data, isLoading, error };
 };
