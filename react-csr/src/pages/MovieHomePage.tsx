@@ -1,7 +1,7 @@
 import { Header } from '../components/Header';
 import { MovieList } from '../components/MovieList';
 import { Footer } from '../components/Footer';
-import { usePopularMovies } from '../hooks/queries/useMovies';
+import { usePopularMovies } from '../hooks/queries/usePopularMovies';
 import { Loading } from '../components/common/Loading';
 
 export default function MovieHomePage() {
