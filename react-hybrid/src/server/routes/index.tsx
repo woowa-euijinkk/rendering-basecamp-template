@@ -1,20 +1,33 @@
 import { Router, Request, Response } from "express";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
 import { renderToString } from "react-dom/server";
 import App from "../../client/App";
 import React from "react";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const router = Router();
 
+function generateHTML() {
+  return /*html*/ `
+    <!DOCTYPE html>
+    <html lang="ko">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/styles/index.css" />
+        <title>영화 리뷰</title>
+        <!--{OG_TAGS}-->
+      </head>
+      <body>
+        <div id="root"><!--{BODY_AREA}--></div>
+        <!--{INIT_DATA_AREA}-->
+        <script src="/static/bundle.js"></script>
+      </body>
+    </html>
+    `;
+}
+
 router.get("/", (_: Request, res: Response) => {
-  const templatePath = path.join(__dirname, "../../../public", "index.html");
-  const template = fs.readFileSync(templatePath, "utf-8");
+  const template = generateHTML();
 
   const renderedApp = renderToString(<App />);
 
@@ -29,7 +42,7 @@ router.get("/", (_: Request, res: Response) => {
   `
   );
   const renderedHTML = renderedHTMLWithInitialData.replace(
-    "<!--${MOVIE_ITEMS_PLACEHOLDER}-->",
+    "<!--${BODY_AREA}-->",
     renderedApp
   );
 

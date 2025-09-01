@@ -1,11 +1,11 @@
 import React from "react";
-import Home from "./components/Home";
+import { OverlayProvider } from "overlay-kit";
 
 function App() {
   return (
-    <div>
-      <Home />
-    </div>
+    <OverlayProvider>
+      <div>app</div>
+    </OverlayProvider>
   );
 }
 

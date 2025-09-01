@@ -1,5 +1,4 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
@@ -10,7 +9,7 @@ module.exports = {
     path: path.resolve("dist/static"),
     filename: "bundle.js",
     clean: true,
-    publicPath: "/static",
+    publicPath: "/static/",
   },
   module: {
     rules: [
@@ -42,11 +41,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-      filename: "index.html",
-      inject: "body",
-    }),
     new CopyPlugin({
       patterns: [
         { from: "public/images", to: "images" },

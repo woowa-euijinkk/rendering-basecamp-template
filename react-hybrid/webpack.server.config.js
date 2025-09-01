@@ -5,6 +5,10 @@ module.exports = {
   mode: "development",
   target: "node",
   entry: path.resolve(__dirname, "src/server/main.ts"),
+  output: {
+    filename: "server.js",
+    path: path.resolve(__dirname, "dist/server"),
+  },
   externals: [nodeExternals()],
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -30,9 +34,5 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
     ],
-  },
-  output: {
-    filename: "server.js",
-    path: path.resolve(__dirname, "dist/server"),
   },
 };
