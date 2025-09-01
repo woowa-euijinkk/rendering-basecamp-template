@@ -32,7 +32,7 @@ router.get("/", (_: Request, res: Response) => {
   const renderedApp = renderToString(<App />);
 
   const renderedHTMLWithInitialData = template.replace(
-    "<!--${INIT_DATA_AREA}-->",
+    "<!--{INIT_DATA_AREA}-->",
     /*html*/ `
     <script>
       window.__INITIAL_DATA__ = {
@@ -42,7 +42,7 @@ router.get("/", (_: Request, res: Response) => {
   `
   );
   const renderedHTML = renderedHTMLWithInitialData.replace(
-    "<!--${BODY_AREA}-->",
+    "<!--{BODY_AREA}-->",
     renderedApp
   );
 
