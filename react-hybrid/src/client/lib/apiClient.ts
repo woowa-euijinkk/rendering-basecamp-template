@@ -5,6 +5,6 @@ export const apiClient = axios.create({
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
+    Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
   },
 });
