@@ -11,3 +11,15 @@
   --color-ffffff: #ffffff;
   --color-242a32: #242a32;
 }
+
+.text-white {
+  color: var(--color-white);
+}
+
+.text-yellow {
+  color: var(--color-yellow);
+}
+
+.text-opacity-blue {
+  color: #95a1b2;
+}
